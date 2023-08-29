@@ -1,0 +1,21 @@
+{
+  "name": "qa-automation-framework-example",
+  "version": "1.0.0",
+  "description": "* A WebDriver manager for managing browser connectors\r * Page Object/Page Factory for page abstractions\r * Models for business objects of the required elements\r * Property files with test data for at least two different environments\r * XML suites for smoke tests and other tests\r * If the test fails, a screenshot with the date and time is taken.\r * The framework should include an option for running with Jenkins and browser parameterization, test suite, environment.\r * Test results should be displayed on the job chart, and the screenshots should be archived as artifacts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wdio": "wdio run ./configs/wdio.conf.js"
+  },
+  "keywords": [],
+  "author": "Andrey Roshchupkin",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/cli": "^8.11.2",
+    "@wdio/local-runner": "^8.11.2",
+    "@wdio/mocha-framework": "^8.11.0",
+    "@wdio/spec-reporter": "^8.11.2",
+    "chromedriver": "^116.0.0",
+    "wdio-chromedriver-service": "^8.1.1"
+  }
+}
