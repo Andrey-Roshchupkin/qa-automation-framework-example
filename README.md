@@ -24,3 +24,5 @@
 Watch <suite_name> in const suites at wdio.conf.js
 
 <browser> could be 'chrome' or 'firefox'
+
+Note that you need node.js https://nodejs.org/en/download/current
