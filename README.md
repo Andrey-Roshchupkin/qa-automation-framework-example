@@ -13,6 +13,14 @@
 - The framework should include an option for running with Jenkins and browser parameterization, test suite, environment.
 - Test results should be displayed on the job chart, and the screenshots should be archived as artifacts.
 
+## To instal use
+
+- npm install
+
 ## To run tests use
 
-- npm run wdio
+- npm run wdio --sutes <suite_name> <browser>
+
+Watch <suite_name> in const suites at wdio.conf.js
+
+<browser> could be 'chrome' or 'firefox'
