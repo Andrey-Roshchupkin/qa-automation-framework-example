@@ -1,4 +1,13 @@
-const { existsSync, mkdirSync } = require("fs");
+const { existsSync, mkdirSync, rmSync } = require("fs");
+
+const browserParam = process.argv.at(-1);
+
+const browserNames = {
+  chrome: "chrome",
+  firefox: "firefox",
+};
+
+const browserName = browserNames[browserParam] || "chrome";
 
 exports.config = {
   //
@@ -60,8 +69,7 @@ exports.config = {
   //
   capabilities: [
     {
-      // capabilities for local browser web tests
-      browserName: "chrome", // or "firefox", "microsoftedge", "safari"
+      browserName: browserName,
     },
   ],
   //
@@ -71,7 +79,7 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "silent",
+  logLevel: "error",
   //
   // Set specific log levels per logger
   // loggers:
@@ -111,7 +119,7 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ["chromedriver"],
+  services: ["chromedriver", "geckodriver"],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -140,7 +148,7 @@ exports.config = {
       {
         outputDir: "./artifacts/reports",
         outputFileFormat: function (options) {
-          return `results-${options.cid}.xml`;
+          return `results-${options.capabilities.browserName}-${options.cid}.xml`;
         },
       },
     ],
@@ -166,8 +174,9 @@ exports.config = {
    * @param {object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+    rmSync("./artifacts", { recursive: true, force: true });
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -205,8 +214,8 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {object}         browser      instance of created browser/device session
    */
-  before: function (capabilities, specs) {
-    return browser.setWindowSize(1366, 768);
+  before: async function (capabilities, specs) {
+    return await browser.setWindowSize(1366, 768);
   },
   /**
    * Runs before a WebdriverIO command gets executed.

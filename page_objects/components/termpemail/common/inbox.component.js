@@ -7,7 +7,7 @@ class InboxComponent extends BaseComponent {
 
   get emailMessageLink() {
     return this.rootEl.$(
-      '//td[text()="gcp-estimate@cloudpricingcalculator.appspotmail.com "]/parent::tr'
+      '//td[text()="gcp-estimate@cloudpricingcalculator.appspotmail.com "]'
     );
   }
 }

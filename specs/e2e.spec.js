@@ -155,12 +155,14 @@ describe("Hardcore", () => {
     await browser.switchWindow(
       "Guerrilla Mail - Disposable Temporary E-Mail Address"
     );
-    await browser.scroll(0, 500);
-    await expect(page("TempEmailMain").inbox.emailMessageLink).toBeDisplayed({
+
+    await expect(page("TempEmailMain").inbox.emailMessageLink).toBeExisting({
       wait: 30000,
       interval: 1000,
     });
+
     await page("TempEmailMain").inbox.emailMessageLink.click();
+
     await expect(page("TempEmailMain").emailmessage.priceFromEmail).toHaveText(
       googleEstimatePriceText
     );
