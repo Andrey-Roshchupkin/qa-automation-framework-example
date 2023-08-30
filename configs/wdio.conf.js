@@ -1,4 +1,5 @@
 const { existsSync, mkdirSync } = require("fs");
+const { resolve } = require("path");
 
 exports.config = {
   //
@@ -204,8 +205,9 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    return browser.setWindowSize(1366, 768);
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {string} commandName hook command name
@@ -222,9 +224,9 @@ exports.config = {
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  beforeTest: function (test, context) {
-    browser.getWindowSize(1366, 768);
-  },
+  // beforeTest: function (test, context) {
+  //
+  // },
   /**
    * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
    * beforeEach in Mocha)
@@ -267,7 +269,8 @@ exports.config = {
       const screenshotName = `${testName}_${screenshotDate}.png`;
       const screenshotPathName = `${screenshotPath}${screenshotName}`;
       await browser.saveScreenshot(screenshotPathName);
-      console.log(`[[ATTACHMENT|${screenshotPathName}]]`);
+      const screenshotAbsolutePath = await resolve(screenshotPathName);
+      console.log(`[[ATTACHMENT|${screenshotAbsolutePath}]]`);
     }
   },
 
