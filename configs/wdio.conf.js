@@ -1,5 +1,4 @@
 const { existsSync, mkdirSync } = require("fs");
-const { resolve } = require("path");
 
 exports.config = {
   //
@@ -32,9 +31,10 @@ exports.config = {
   ],
   //
   suites: {
-    e2e: ["./test/specs/e2e.spec.js"],
-    screenshot: ["./test/specs/screenshot.spec.js"],
-    smoke: ["./test/specs/smoke.spec.js"],
+    all: ["../specs/*.js"],
+    e2e: ["../specs/e2e.spec.js"],
+    screenshot: ["../specs/screenshot.spec.js"],
+    smoke: ["../specs/smoke.spec.js"],
   },
   //
   // ============
@@ -134,13 +134,7 @@ exports.config = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: [
-    [
-      "spec",
-      {
-        showPreface: false,
-        addConsoleLogs: true,
-      },
-    ],
+    "spec",
     [
       "junit",
       {
@@ -275,8 +269,6 @@ exports.config = {
       const screenshotName = `${testName}_${screenshotDate}.png`;
       const screenshotPathName = `${screenshotPath}${screenshotName}`;
       await browser.saveScreenshot(screenshotPathName);
-      const screenshotAbsolutePath = await resolve(screenshotPathName);
-      console.log(`[[ATTACHMENT|${screenshotAbsolutePath}]]`);
     }
   },
 
