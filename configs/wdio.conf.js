@@ -222,9 +222,9 @@ exports.config = {
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  // beforeTest: function (test, context) {
-  //   browser.maximizeWindow();
-  // },
+  beforeTest: function (test, context) {
+    browser.getWindowSize(1366, 768);
+  },
   /**
    * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
    * beforeEach in Mocha)
@@ -266,8 +266,8 @@ exports.config = {
         .substring(0, 19);
       const screenshotName = `${testName}_${screenshotDate}.png`;
       const screenshotPathName = `${screenshotPath}${screenshotName}`;
-
       await browser.saveScreenshot(screenshotPathName);
+      console.log(`[[ATTACHMENT|${screenshotPathName}]]`);
     }
   },
 

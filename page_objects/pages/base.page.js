@@ -3,8 +3,7 @@ class BasePage {
     this.url = url;
   }
   open() {
-    browser.newWindow(this.url);
-    browser.maximizeWindow();
+    return browser.newWindow(this.url);
   }
 }
 
