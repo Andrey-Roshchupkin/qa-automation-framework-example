@@ -19,7 +19,7 @@
 
 ## To run tests use
 
-- npm run wdio --sutes <suite_name> <browser>
+- npm run wdio --suites <suite_name> <browser>
 
 Watch <suite_name> in const suites at wdio.conf.js
 
