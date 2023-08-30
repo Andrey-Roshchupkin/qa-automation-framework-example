@@ -160,9 +160,9 @@ describe("Hardcore", () => {
       wait: 30000,
       interval: 1000,
     });
-
+    await browser.scroll(0, 200);
     await page("TempEmailMain").inbox.emailMessageLink.click();
-
+    await browser.scroll(0, 400);
     await expect(page("TempEmailMain").emailmessage.priceFromEmail).toHaveText(
       googleEstimatePriceText
     );
