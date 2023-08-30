@@ -1,3 +1,5 @@
+const { existsSync, mkdirSync } = require("fs");
+
 exports.config = {
   //
   // ====================
@@ -27,6 +29,12 @@ exports.config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
+  //
+  suites: {
+    e2e: ["./test/specs/e2e.spec.js"],
+    screenshot: ["./test/specs/screenshot.spec.js"],
+    smoke: ["./test/specs/smoke.spec.js"],
+  },
   //
   // ============
   // Capabilities
@@ -124,7 +132,18 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ["spec"],
+  reporters: [
+    "spec",
+    [
+      "junit",
+      {
+        outputDir: "./artifacts/reports",
+        outputFileFormat: function (options) {
+          return `results-${options.cid}.xml`;
+        },
+      },
+    ],
+  ],
 
   //
   // Options to be passed to Mocha.
@@ -228,13 +247,27 @@ exports.config = {
    * @param {boolean} result.passed    true if test has passed, otherwise false
    * @param {object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: function (
+  afterTest: async function (
     test,
     context,
     { error, result, duration, passed, retries }
   ) {
     if (error) {
-      browser.takeScreenshot();
+      const screenshotPath = "./artifacts/screenshots/";
+
+      if (!existsSync(screenshotPath)) {
+        mkdirSync(screenshotPath, { recursive: true });
+      }
+
+      const testName = await test.title;
+      const screenshotDate = new Date()
+        .toISOString()
+        .replace(/:/g, "-")
+        .substring(0, 19);
+      const screenshotName = `${testName}_${screenshotDate}.png`;
+      const screenshotPathName = `${screenshotPath}${screenshotName}`;
+
+      await browser.saveScreenshot(screenshotPathName);
     }
   },
 
