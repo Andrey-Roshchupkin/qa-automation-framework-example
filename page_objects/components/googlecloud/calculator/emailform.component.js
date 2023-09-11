@@ -11,9 +11,9 @@ class EmailFormComponent extends BaseComponent {
     };
     return this.rootEl.$(selectors[name.toLowerCase()]);
   }
-
+  // "button*=Send Email" / button.md-primary /"button[ng-click='emailQuote.emailQuote(true); emailQuote.$mdDialog.hide()']"
   get sendEmailButton() {
-    return this.rootEl.$("//md-dialog-actions/button[2]");
+    return this.rootEl.$("button.md-primary");
   }
 }
 

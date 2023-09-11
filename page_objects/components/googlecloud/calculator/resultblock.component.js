@@ -2,20 +2,24 @@ const BaseComponent = require("../../base.component");
 
 class ResultBlockComponent extends BaseComponent {
   constructor() {
-    super("//*[@id='resultBlock']");
+    super("#resultBlock");
   }
 
-  getResultField(name) {
+  async getResultField(name) {
     const elements = {
-      provisionmodel: '//*[@id="compute"]/md-list/md-list-item[4]/div[1]',
-      machinetype: '//*[@id="compute"]/md-list/md-list-item[5]/div[1]',
-      atacenterlocation: '//*[@id="compute"]/md-list/md-list-item[1]/div[1]',
-      localssd: '//*[@id="compute"]/md-list/md-list-item[8]/div[1]',
-      commitedusage: '//*[@id="compute"]/md-list/md-list-item[3]/div[1]',
-      totalestimatedmonthlycost:
-        '//*[@id="resultBlock"]/md-card/md-card-content/div/div/div/div[1]/h2/b',
+      provisionmodel: "Provisioning model:",
+      machinetype: "Instance type:",
+      datacenterlocation: "Region:",
+      localssd: "Local SSD:",
+      commitedusage: "Commitment term:",
     };
-    return this.rootEl.$(elements[name.toLowerCase()]);
+    return await this.rootEl.$(
+      `//div[contains(text(), "${elements[name.toLowerCase()]}")]`
+    );
+  }
+
+  get totalEstimatedMonthlyCost() {
+    return this.rootEl.$("div.cpc-cart-total b");
   }
 
   get emailEstimateButton() {

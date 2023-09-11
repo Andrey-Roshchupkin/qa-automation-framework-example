@@ -6,9 +6,7 @@ class EmailMessageComponent extends BaseComponent {
   }
 
   get priceFromEmail() {
-    return this.rootEl.$(
-      '//*[@id="display_email"]/div/div[2]/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td[2]/h3'
-    );
+    return this.rootEl.$("h2*=Estimated Monthly Cost: USD");
   }
 }
 

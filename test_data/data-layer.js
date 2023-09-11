@@ -1,6 +1,7 @@
 const testData = {
   searchValue: "Google Cloud Platform Pricing Calculator",
   searchResult: "Google Cloud Pricing Calculator",
+  paginationItem: "computeengine",
   numberOfInstances: "4",
   whatAreInstancesFor: "",
   operatingSystem:
