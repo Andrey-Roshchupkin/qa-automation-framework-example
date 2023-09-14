@@ -4,11 +4,11 @@ class SelectMenuComponent extends BaseComponent {
   constructor() {
     super("");
   }
-
+  // `//div[contains(@class, 'md-clickable')]//div[normalize-space(text())='${name}']` / `//body/div//div[normalize-space(text())='${name}']`
   async selectOption(name) {
     return await browser
       .$(
-        `//body/div/md-select-menu//md-option//div[normalize-space(text())='${name}']`
+        `//div[contains(@class, 'md-clickable')]//div[normalize-space(text())='${name}']`
       )
       .click();
   }

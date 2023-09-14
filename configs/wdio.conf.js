@@ -42,7 +42,6 @@ exports.config = {
   suites: {
     all: ["../specs/*.js"],
     e2e: ["../specs/e2e.spec.js"],
-    screenshot: ["../specs/screenshot.spec.js"],
     smoke: ["../specs/smoke.spec.js"],
   },
   //
@@ -79,7 +78,7 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "error",
+  logLevel: "info",
   //
   // Set specific log levels per logger
   // loggers:
